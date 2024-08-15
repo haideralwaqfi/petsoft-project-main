@@ -11,7 +11,7 @@ import {
 import { DialogTitle } from "@radix-ui/react-dialog";
 import PetForm from "./PetForm";
 import { flushSync } from "react-dom";
-
+import { usePetContext } from "@/lib/hooks";
 type PetButtonProps = {
   actionType: "add" | "edit" | "checkout";
   children?: React.ReactNode;
@@ -25,6 +25,7 @@ export default function PetButton({
   disabled,
 }: PetButtonProps) {
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const { handleResetPetForm } = usePetContext();
   if (actionType === "checkout") {
     return (
       <Button onClick={onClick} disabled={disabled} variant="secondary">
@@ -38,7 +39,10 @@ export default function PetButton({
       <DialogTrigger asChild>
         {actionType === "add" ? (
           <Button size="icon">
-            <PlusCircledIcon className="h-6 w-6" />
+            <PlusCircledIcon
+              className="h-6 w-6"
+              onClick={() => handleResetPetForm()}
+            />
           </Button>
         ) : (
           <Button variant="secondary">{children}</Button>

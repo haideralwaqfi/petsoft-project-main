@@ -26,6 +26,7 @@ type TPetContext = {
   handleCheckoutPet: (id: Pet["id"]) => Promise<void | string | number>;
   handleAddPet: (newPet: PetEssentials) => Promise<void | string | number>;
   handleEditPet: (petId: Pet["id"], newPetData: PetEssentials) => void;
+  handleResetPetForm: () => void;
 };
 
 export const PetContext = createContext<TPetContext | null>(null);
@@ -50,6 +51,8 @@ export default function PetContextProvider({
           });
         case "delete":
           return state.filter((pet) => pet.id !== payload);
+        case "reset":
+          return [...state, { name: "" }];
         default:
           return state;
       }
@@ -72,6 +75,10 @@ export default function PetContextProvider({
     setOptimisticPets({ action: "add", payload: newPet });
     const error = await addPet(newPet);
     if (error?.message) return toast.warning(error.message);
+  };
+
+  const handleResetPetForm = () => {
+    setSelectedPetId(null);
   };
 
   const handleEditPet = async (petId: Pet["id"], newPetData: PetEssentials) => {
@@ -102,6 +109,7 @@ export default function PetContextProvider({
         handleCheckoutPet,
         handleAddPet,
         handleEditPet,
+        handleResetPetForm,
       }}>
       {children}
     </PetContext.Provider>
