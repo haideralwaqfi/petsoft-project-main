@@ -2,6 +2,7 @@
 
 import { usePetContext, useSearchContext } from "@/lib/hooks";
 import { cn } from "@/lib/utils";
+import { log } from "console";
 import Image from "next/image";
 import React from "react";
 

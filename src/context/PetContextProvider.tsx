@@ -65,6 +65,7 @@ export default function PetContextProvider({
   //event handler
   const handleChangeSelectedPetId = (id: string) => {
     setSelectedPetId(id);
+    console.log(id);
   };
 
   const handleAddPet = async (newPet: PetEssentials) => {
