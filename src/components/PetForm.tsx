@@ -3,24 +3,35 @@ import React from "react";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
-import { Button } from "./ui/button";
 import { usePetContext } from "@/lib/hooks";
-import { Pet } from "@/lib/types";
-import { addPet } from "@/actions/actions";
 import PetFormBtn from "./PetFormBtn";
-import { toast } from "sonner";
+
 type PetFormProps = {
   type: "add" | "edit";
   onFormSubmission: () => void;
 };
 export default function PetForm({ type, onFormSubmission }: PetFormProps) {
-  const { selectedPet } = usePetContext();
+  const { selectedPet, handleAddPet, handleEditPet, selectedPetId } =
+    usePetContext();
   return (
     <form
       action={async (formData) => {
-        const error = await addPet(formData);
-        if (error?.message) return toast.warning(error.message);
         onFormSubmission();
+        const petData = {
+          name: formData.get("name") as string,
+          ownerName: formData.get("ownerName") as string,
+          age: Number(formData.get("age"))!,
+          notes: formData.get("note") as string,
+          imageUrl:
+            (formData.get("imageUrl") as string) ||
+            "https://bytegrad.com/course-assets/react-nextjs/pet-placeholder.png",
+        };
+
+        if (type === "add") {
+          await handleAddPet(petData);
+        } else if (type === "edit") {
+          await handleEditPet(selectedPetId!, petData);
+        }
       }}
       className="flex flex-col">
       <div className="space-y-3">
