@@ -3,7 +3,7 @@ import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 
-export default function AuthForm({ type }: { type: "logIn" | "signUps" }) {
+export default function AuthForm({ type }: { type: "logIn" | "signUp" }) {
   return (
     <form>
       <div className="space-y-1">
