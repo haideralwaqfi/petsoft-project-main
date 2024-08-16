@@ -28,13 +28,16 @@ export default function PetForm({ type, onFormSubmission }: PetFormProps) {
     formState: { errors, defaultValues },
   } = useForm<TPetForm>({
     resolver: zodResolver(petFormSchema),
-    defaultValues: {
-      name: selectedPet?.name,
-      ownerName: selectedPet?.ownerName,
-      imageUrl: selectedPet?.imageUrl,
-      age: selectedPet?.age,
-      notes: selectedPet?.notes,
-    },
+    defaultValues:
+      type == "edit"
+        ? {
+            name: selectedPet?.name,
+            ownerName: selectedPet?.ownerName,
+            imageUrl: selectedPet?.imageUrl,
+            age: selectedPet?.age,
+            notes: selectedPet?.notes,
+          }
+        : undefined,
   });
   return (
     <form

@@ -39,10 +39,7 @@ export default function PetButton({
       <DialogTrigger asChild>
         {actionType === "add" ? (
           <Button size="icon">
-            <PlusCircledIcon
-              className="h-6 w-6"
-              onClick={() => handleResetPetForm()}
-            />
+            <PlusCircledIcon className="h-6 w-6" />
           </Button>
         ) : (
           <Button variant="secondary">{children}</Button>
