@@ -2,11 +2,11 @@ import React from "react";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { login } from "@/actions/actions";
+import { login, signUp } from "@/actions/actions";
 
 export default function AuthForm({ type }: { type: "logIn" | "signUp" }) {
   return (
-    <form action={login}>
+    <form action={type === "logIn" ? login : signUp}>
       <div className="space-y-1">
         <Label htmlFor="email">Email</Label>
         <Input id="email" name="email" type="email" />
