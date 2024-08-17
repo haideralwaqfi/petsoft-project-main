@@ -65,7 +65,7 @@ export default function PetForm({ type, onFormSubmission }: PetFormProps) {
         </div>
         <div className="space-y-1">
           <Label htmlFor="ownerName">Owner Name</Label>
-          <Input id="ownerName" {...register("ownerName")} d />
+          <Input id="ownerName" {...register("ownerName")} />
           {errors.ownerName && (
             <p className="text-red-500 ">{errors.ownerName.message}</p>
           )}

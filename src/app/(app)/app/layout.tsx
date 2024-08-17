@@ -8,22 +8,16 @@ import prisma from "@/lib/db";
 import React from "react";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import { checkAuth, getPetsByUserId } from "@/lib/server-utils";
 
 export default async function layout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const session = await auth();
-  if (!session?.user) {
-    redirect("/login");
-  }
+  const session = await checkAuth();
 
-  const pets = await prisma.pet.findMany({
-    where: {
-      userId: session.user.id,
-    },
-  });
+  const pets = await getPetsByUserId(session.user.id);
 
   return (
     <>
